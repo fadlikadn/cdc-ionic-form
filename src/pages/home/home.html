@@ -1,14 +1,37 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Your personal details
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+    <form (ngSubmit)="saveDetails()">
+        <ion-list>
+            <ion-item>
+                <ion-label>Your Name</ion-label>
+                <ion-input type="text" [(ngModel)]="details.name" name="name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Your Occupation</ion-label>
+                <ion-input type="text" [(ngModel)]="details.occupation" [ngModelOptions]="{standalone: true}" name="occupation"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Favourite Platform</ion-label>
+                <ion-select type="text" [(ngModel)]="details.platform" name="platform">
+                    <ion-option value="Android">Android</ion-option>
+                    <ion-option value="iOS">iOS</ion-option>
+                    <ion-option value="WP">Windows Phone</ion-option>
+                    <ion-option value="Other">Other</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <button ion-button color="primary" text-center block>
+              Save Details
+            </button>
+        </ion-list>
+    </form>
 </ion-content>
