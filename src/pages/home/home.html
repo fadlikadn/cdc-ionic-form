@@ -7,21 +7,21 @@
 </ion-header>
 
 <ion-content padding>
-    <form (ngSubmit)="saveDetails()">
+    <form [formGroup]="form" (ngSubmit)="saveDetails(form.value)">
         <ion-list>
-            <ion-item>
+            <ion-item margin-bottom>
                 <ion-label>Your Name</ion-label>
-                <ion-input type="text" [(ngModel)]="details.name" name="name"></ion-input>
+                <ion-input type="text" [formControl]="form.controls['name']"></ion-input>
             </ion-item>
 
-            <ion-item>
-                <ion-label>Your Occupation</ion-label>
-                <ion-input type="text" [(ngModel)]="details.occupation" [ngModelOptions]="{standalone: true}" name="occupation"></ion-input>
+            <ion-item margin-bottom>
+                <ion-label>Your Email address</ion-label>
+                <ion-input type="email" [formControl]="form.controls['email']"></ion-input>
             </ion-item>
 
-            <ion-item>
+            <ion-item margin-bottom>
                 <ion-label>Favourite Platform</ion-label>
-                <ion-select type="text" [(ngModel)]="details.platform" name="platform">
+                <ion-select [formControl]="form.controls['platform']">
                     <ion-option value="Android">Android</ion-option>
                     <ion-option value="iOS">iOS</ion-option>
                     <ion-option value="WP">Windows Phone</ion-option>
@@ -29,9 +29,21 @@
                 </ion-select>
             </ion-item>
 
-            <button ion-button color="primary" text-center block>
+            <button ion-button color="primary" text-center block [disabled]="!form.valid">
               Save Details
             </button>
         </ion-list>
     </form>
+
+    <div *ngIf="form.controls['name'].dirty && !form.controls['name'].valid">
+        <p *ngIf="form.controls['name'].errors.InvalidName">
+            Your name cannot contain any numbers.
+        </p>
+    </div>
+
+    <div *ngIf="form.controls['email'].dirty && !form.controls['email'].valid">
+        <p *ngIf="form.controls['email'].errors.InvalidEmail">
+            You must enter a valid e-mail address.
+        </p>
+    </div>
 </ion-content>
